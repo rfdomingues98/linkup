@@ -1,43 +1,12 @@
 "use client";
 
-import type * as LabelPrimitive from "@radix-ui/react-label";
-import type {
-  ControllerProps,
-  FieldPath,
-  FieldValues,
-  UseFormProps,
-} from "react-hook-form";
-import type { ZodType, ZodTypeDef } from "zod";
+import type { ControllerProps, FieldPath, FieldValues } from "react-hook-form";
 import * as React from "react";
-import { zodResolver } from "@hookform/resolvers/zod";
+import * as LabelPrimitive from "@radix-ui/react-label";
 import { Slot } from "@radix-ui/react-slot";
-import {
-  useForm as __useForm,
-  Controller,
-  FormProvider,
-  useFormContext,
-} from "react-hook-form";
+import { Controller, FormProvider, useFormContext } from "react-hook-form";
 
-import { cn } from "@acme/ui";
-
-import { Label } from "./label";
-
-const useForm = <
-  TOut extends FieldValues,
-  TDef extends ZodTypeDef,
-  TIn extends FieldValues,
->(
-  props: Omit<UseFormProps<TIn>, "resolver"> & {
-    schema: ZodType<TOut, TDef, TIn>;
-  },
-) => {
-  const form = __useForm<TIn, unknown, TOut>({
-    ...props,
-    resolver: zodResolver(props.schema, undefined),
-  });
-
-  return form;
-};
+import { cn } from ".";
 
 const Form = FormProvider;
 
@@ -48,8 +17,8 @@ interface FormFieldContextValue<
   name: TName;
 }
 
-const FormFieldContext = React.createContext<FormFieldContextValue | null>(
-  null,
+const FormFieldContext = React.createContext<FormFieldContextValue>(
+  {} as FormFieldContextValue,
 );
 
 const FormField = <
@@ -70,9 +39,6 @@ const useFormField = () => {
   const itemContext = React.useContext(FormItemContext);
   const { getFieldState, formState } = useFormContext();
 
-  if (!fieldContext) {
-    throw new Error("useFormField should be used within <FormField>");
-  }
   const fieldState = getFieldState(fieldContext.name, formState);
 
   const { id } = itemContext;
@@ -116,7 +82,7 @@ const FormLabel = React.forwardRef<
   const { error, formItemId } = useFormField();
 
   return (
-    <Label
+    <LabelPrimitive.Label
       ref={ref}
       className={cn(error && "text-destructive", className)}
       htmlFor={formItemId}
@@ -191,15 +157,12 @@ const FormMessage = React.forwardRef<
 FormMessage.displayName = "FormMessage";
 
 export {
-  useForm,
-  useFormField,
   Form,
-  FormItem,
-  FormLabel,
   FormControl,
   FormDescription,
-  FormMessage,
   FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+  useFormField,
 };
-
-export { useFieldArray } from "react-hook-form";

@@ -1,8 +1,8 @@
 {
-  "name": "create-t3-turbo",
+  "name": "@linkup/monorepo",
   "private": true,
   "engines": {
-    "node": ">=20.18.1",
+    "node": ">=22.13.0",
     "pnpm": "^9.14.2"
   },
   "packageManager": "pnpm@9.14.2",
@@ -10,10 +10,10 @@
     "build": "turbo run build",
     "clean": "git clean -xdf node_modules",
     "clean:workspaces": "turbo run clean",
-    "db:push": "turbo -F @acme/db push",
-    "db:studio": "turbo -F @acme/db studio",
+    "db:push": "turbo -F @linkup/db push",
+    "db:studio": "turbo -F @linkup/db studio",
     "dev": "turbo watch dev --continue",
-    "dev:next": "turbo watch dev -F @acme/nextjs...",
+    "dev:next": "turbo watch dev -F @linkup/web...",
     "format": "turbo run format --continue -- --cache --cache-location .cache/.prettiercache",
     "format:fix": "turbo run format --continue -- --write --cache --cache-location .cache/.prettiercache",
     "lint": "turbo run lint --continue -- --cache --cache-location .cache/.eslintcache",
@@ -24,11 +24,11 @@
     "ui-add": "turbo run ui-add"
   },
   "devDependencies": {
-    "@acme/prettier-config": "workspace:*",
+    "@linkup/prettier-config": "workspace:*",
     "@turbo/gen": "^2.3.3",
     "prettier": "catalog:",
     "turbo": "^2.3.3",
     "typescript": "catalog:"
   },
-  "prettier": "@acme/prettier-config"
+  "prettier": "@linkup/prettier-config"
 }
