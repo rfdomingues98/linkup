@@ -21,7 +21,7 @@ export function MultiUploader() {
     setFiles(acceptedFiles);
   }, []);
 
-  const { startUpload, routeConfig } = useUploadThing("videoAndImage", {
+  const { startUpload: _, routeConfig } = useUploadThing("videoAndImage", {
     onClientUploadComplete: () => {
       alert("uploaded successfully!");
     },
